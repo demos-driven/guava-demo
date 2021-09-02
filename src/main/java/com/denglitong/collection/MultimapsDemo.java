@@ -1,18 +1,17 @@
 package com.denglitong.collection;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.SetMultimap;
+import com.google.common.collect.*;
+import com.google.common.primitives.Ints;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author litong.deng@foxmail.com
  * @date 2021/9/1
  */
-public class MultimapDemo {
+public class MultimapsDemo {
 
     public static void main(String[] args) {
         // ① ListMultimap
@@ -86,5 +85,25 @@ public class MultimapDemo {
         System.out.println(setMultimap.keySet()); // [cat, dog]
         System.out.println(setMultimap.values()); // [10, 15, 20, 10]
         System.out.println(setMultimap.asMap().values()); // [[10, 15], [20, 10]]
+
+        // invertFrom
+        ArrayListMultimap<String, Integer> multimap = ArrayListMultimap.create();
+        multimap.putAll("b", Ints.asList(2, 4, 6));
+        multimap.putAll("a", Ints.asList(4, 2, 1));
+        multimap.putAll("c", Ints.asList(2, 5, 3));
+        System.out.println(multimap); // {a=[4, 2, 1], b=[2, 4, 6], c=[2, 5, 3]}
+        System.out.println(multimap.get("b"));
+
+        TreeMultimap<Integer, String> inverse = Multimaps.invertFrom(multimap, TreeMultimap.create());
+        System.out.println(inverse); // {1=[a], 2=[a, b, c], 3=[c], 4=[a, b], 5=[c], 6=[b]}
+        System.out.println(inverse.get(2));
+
+        // forMap
+        Map<String, Integer> map = ImmutableMap.of("a", 1, "b", 1, "c", 2);
+        SetMultimap<String, Integer> setMultimap1 = Multimaps.forMap(map);
+        System.out.println(setMultimap1);
+        Multimap<Integer, String> inverse1 = Multimaps.invertFrom(setMultimap1, HashMultimap.create());
+        System.out.println(inverse1); // {1=[a, b], 2=[c]}
+        System.out.println(inverse1.get(1));
     }
 }
