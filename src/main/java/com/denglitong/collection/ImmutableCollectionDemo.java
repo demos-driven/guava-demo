@@ -108,6 +108,11 @@ public class ImmutableCollectionDemo {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
 
+        // {a={javase=80, apache-commons=75}, b={javaee=90}, c={javame=100}, d={guava=70}}
+        System.out.println(table);
+        // {javase={a=80}, apache-commons={a=75}, javaee={b=90}, javame={c=100}, guava={d=70}}
+        System.out.println(Tables.transpose(table));
+
     }
 
     private static class Foo {
