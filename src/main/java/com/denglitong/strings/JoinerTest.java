@@ -9,7 +9,7 @@ import com.google.common.base.Joiner;
 public class JoinerTest {
 
     public static void main(String[] args) {
-        // Joiner
+        // Joiner 实例总是不可变的
         final Joiner joiner = Joiner.on(";").skipNulls();
         // Harry;Ron;Hermione
         System.out.println(joiner.join("Harry", null, "Ron", "Hermione"));
@@ -17,6 +17,6 @@ public class JoinerTest {
         final Joiner joiner1 = Joiner.on(";").useForNull("NULL");
         // Harry;NULL;Ron;Hermione
         System.out.println(joiner1.join("Harry", null, "Ron", "Hermione"));
-        
+
     }
 }
