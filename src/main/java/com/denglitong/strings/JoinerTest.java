@@ -1,0 +1,22 @@
+package com.denglitong.strings;
+
+import com.google.common.base.Joiner;
+
+/**
+ * @author litong.deng@foxmail.com
+ * @date 2021/10/7
+ */
+public class JoinerTest {
+
+    public static void main(String[] args) {
+        // Joiner
+        final Joiner joiner = Joiner.on(";").skipNulls();
+        // Harry;Ron;Hermione
+        System.out.println(joiner.join("Harry", null, "Ron", "Hermione"));
+
+        final Joiner joiner1 = Joiner.on(";").useForNull("NULL");
+        // Harry;NULL;Ron;Hermione
+        System.out.println(joiner1.join("Harry", null, "Ron", "Hermione"));
+        
+    }
+}
